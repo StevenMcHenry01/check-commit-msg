@@ -9,7 +9,7 @@
  */
 const gitRoot = require("./git-root");
 const fs = require("fs");
-const filename = process.env["HUSKY_GIT_PARAMS"].split(" ")[0];
+const filename = ".git/COMMIT_EDITMSG";
 const fullPath = filename.replace(".git", gitRoot);
 const commitMsg = fs.readFileSync(fullPath).toString();
 

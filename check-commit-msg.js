@@ -4,8 +4,8 @@ const process = require("process");
 const chalk = require("chalk");
 const isInMergeOrRebase = require("./is-rebase-merge.js")();
 
-const printWarning = msg => console.warn(chalk.yellow(msg));
-const printError = msg => console.warn(chalk.red(msg));
+const printWarning = (msg) => console.warn(chalk.yellow(msg));
+const printError = (msg) => console.warn(chalk.red(msg));
 const absoluteMax = 80;
 const recommendedMax = 50;
 const errors = [];
@@ -18,12 +18,6 @@ const errors = [];
 module.exports = function checkCommitMsg(commitMsg) {
   if (isInMergeOrRebase) {
     process.exit(0);
-  }
-
-  if (!commitMsg.match(/^[a-zA-Z]{2,6}-\d{1,5} /)) {
-    errors.push(
-      'Commit messages should be prefixed with the github issue number, i.e. "GH-637 Update design of ListView"'
-    );
   }
 
   const firstLine = commitMsg.split("\n")[0];
