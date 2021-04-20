@@ -6,8 +6,7 @@ const isInMergeOrRebase = require("./is-rebase-merge.js")();
 
 const printWarning = (msg) => console.warn(chalk.yellow(msg));
 const printError = (msg) => console.warn(chalk.red(msg));
-const absoluteMax = 80;
-const recommendedMax = 50;
+const absoluteMax = 50;
 const errors = [];
 
 /**
@@ -21,10 +20,16 @@ module.exports = function checkCommitMsg(commitMsg) {
   }
 
   const firstLine = commitMsg.split("\n")[0];
-  const len = firstLine.length;
-  if (len > recommendedMax && len <= absoluteMax) {
-    printWarning(
-      "Subject lines should be kept short and sweet (i.e. < 50 chars). Use the body for details."
+
+  if(firstLine[0] !== firstLine[0].toUpperCase() && firstLine[0] === firstLine[0].toLowerCase()) {
+    errors.push(
+      `The first letter of your subject line must be capitalized.`
+    );
+  }
+
+  if(firstLine[firstLine.length - 1] === '.') {
+    errors.push(
+      `Your subject must not end in a period "."`
     );
   }
 
