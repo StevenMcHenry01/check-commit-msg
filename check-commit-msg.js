@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
-const fs = require("fs");
 const process = require("process");
 const chalk = require("chalk");
 const isInMergeOrRebase = require("./is-rebase-merge.js")();
 
-const printWarning = (msg) => console.warn(chalk.yellow(msg));
 const printError = (msg) => console.warn(chalk.red(msg));
 const absoluteMax = 50;
+const absoluteMin = 5;
 const errors = [];
 
 /**
@@ -30,6 +29,12 @@ module.exports = function checkCommitMsg(commitMsg) {
   if(firstLine[firstLine.length - 1] === '.') {
     errors.push(
       `Your subject must not end in a period "."`
+    );
+  }
+
+  if (firstLine.length < absoluteMin) {
+    errors.push(
+      `Too short subject line in git commit message! Min ${absoluteMin} characters.`
     );
   }
 
